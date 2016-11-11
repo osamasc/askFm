@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+
+use App\Relationship;
+
+use Illuminate\Support\Facades\Auth;
+    
+
+class RelationsController extends Controller
+{
+    public function postFollow(Request $request)
+    {
+        $relationship = new Relationship();
+        $relationship->follower_id = Auth::User()->id;
+        $relationship->followed_id = $request->followed_id;
+        $relationship->save();
+
+        return redirect()->back();
+    }
+
+    public function removeRelation(Request $request)
+    {
+        $relationship = Relationship::where('follower_id', Auth::User()->id)->where('followed_id', $request->followed_id)->first();
+        $relationship->delete();
+
+        return redirect()->back();
+    }
+}
