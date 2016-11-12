@@ -14,6 +14,8 @@ use App\Answer;
 
 use App\User;
 
+use App\Notification;
+
 
 class QuestController extends Controller
 {   
@@ -43,7 +45,16 @@ class QuestController extends Controller
 
         $question->save();
 
-        return redirect('/');
+        $notification = new Notification();
+        $notification->user_id = Auth::User()->id;
+        $notification->receiver_id = $request->receiver;
+        $notification->content= 'Asks You A Question';
+        $notification->type = 'questions';
+        $notification->question_id  = $question->id;
+        $notification->save();
+
+
+        return redirect()->back();
     }
 
     public function validateQuestion($request)
@@ -79,7 +90,6 @@ class QuestController extends Controller
         $question = Question::find($id);
 
             
-
         $replied  = $question->replied;
         $receiver = $question->receiver_id;
 
@@ -92,9 +102,10 @@ class QuestController extends Controller
 
     public function postAnswer(Request $request)
     {   
+        
         $question = Question::find($request->id);
 
-        if ($question->user_id != Auth::user()->id){ return null;}
+        if ($question->receiver_id != Auth::user()->id){ return null;}
 
         $question->replied = 1;
         $question->update();
@@ -106,8 +117,20 @@ class QuestController extends Controller
         $answer->question_id = $request->id;
         $answer->save();
 
+
+        $notification = new Notification();
+        $notification->user_id = Auth::User()->id;
+        $notification->receiver_id = $question->user_id;
+        $notification->content= 'Answerd Your Fuckn Question';
+        $notification->type = 'Answers';
+        $notification->question_id  = $question->id;
+        $notification->answer_id    = $answer->id;
+        $notification->save();
+
         
         return redirect('/account/questions');
+    
+
     }
 
     public function singleQuestion($username)

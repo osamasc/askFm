@@ -60,3 +60,26 @@ body {
     background-color: white;
     padding: 30px;
 }
+
+.question-block .quest {
+    padding: 15px;
+    background-color: #3E6B89;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.question-block .answer {
+    background-color: #79A8A9;
+    padding: 10px;
+    border-radius: 10px;
+    color: #F5F5F5;
+    padding-left: 100px;
+}
+
+ form:input.options {
+    display: inline-block;
+    color: red;
+}

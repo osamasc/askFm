@@ -8,21 +8,12 @@
             <div class="user-info">
                 <b>{{ $user->fullname }}</b> <br> {{ '@' . $user->username   }}            
             </div>
-            <div>
-                    @if( $user->id != $currentAuth->id && $followed != 1 )
-                        <form action="{{ URL::to('/') . '/relations'}}" method="POST"> 
-                            {{ csrf_field() }}
-                            <input type="hidden" name="followed_id" value="{{ $user->id }}">
-                            <input type="submit" value="Follow" class="btn btn-sm btn-success">
-                        </form>
-                    @elseif ($user->id != $currentAuth->id && $followed == 1)
-                        <form action="{{ URL::to('/') . '/relations/remove'}}" method="POST"> 
-                            {{ csrf_field() }}
-                            <input type="hidden" name="followed_id" value="{{ $user->id }}">
-                            <input type="submit" value="Unfollow" class="btn btn-sm btn-success">
-                        </form>
-                    @endif  
+            <div class="relation">   
+                    @if ($user->id != $currentAuth->id)
+            
+                      <button data-followed="{{ $followed }}" data-id="{{ $user->id }}" class="btn btn-sm btn-success fuck">{{ ($followed != 1) ? 'Follow' : 'Unfollow' }}</button>
 
+                    @endif
             </div>
         </div>    
     </div>
@@ -50,8 +41,8 @@
     @foreach($questions as $question)
         <div class="question-block" >
        
-            <div class="question">
-                <h3>{{ $question->content }}</h3>
+            <div class="quest">
+                <p>{{ $question->content }}</p>
             </div>
        
             <div class="answer">
@@ -118,4 +109,5 @@
 
         var token = '{{ Session::token() }}';
         var urlLike   = '{{ URL::to('/') . '/answer/like'}}';
+        var relationUrl = '{{ URL::to('/') . '/relations'}}';
 @stop

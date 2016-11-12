@@ -28,8 +28,6 @@ Route::post('/account/question', 'QuestController@postAnswer');
 
 Route::post('/relations', 'RelationsController@postFollow');
 
-Route::post('/relations/remove', 'RelationsController@removeRelation');
-
 Route::post('/answer/delete', 'AnswerController@removeAnswer');
 
 Route::post('/answer/like', 'LikeController@postLike');

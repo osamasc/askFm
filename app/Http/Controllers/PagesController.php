@@ -30,7 +30,7 @@ class PagesController extends Controller
     {
         $user  = User::where('username', $username)->first();
        
-        $questions = Question::where('user_id', $user->id)->where('replied', 1)->get();
+        $questions = Question::where('receiver_id', $user->id)->where('replied', 1)->get();
        
         $answerCount = Answer::where('user_id', $user->id)->count();
 

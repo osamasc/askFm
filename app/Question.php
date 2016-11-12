@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Like;
+
 class Question extends Model
 {
     public function answer()
@@ -14,5 +16,10 @@ class Question extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function likes ()
+    {
+        return $this->hasMany('App\Like');
     }
 }

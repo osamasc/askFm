@@ -5,7 +5,6 @@ $(document).ready(function(){
              is_liked = $('.options').data('liked'),
              button = $('.like'),
              options = $('.options');
-        
         if (is_liked == 0){
             
             button.text('Unlike');
@@ -14,7 +13,7 @@ $(document).ready(function(){
             $.ajax({
                 method: 'POST',
                 url: urlLike,
-                data: {answer_id: id, _token: token, isliked: 0} 
+                data: {question_id: id, _token: token, isliked: 0} // zero is not working
             });
         } if ( is_liked == 1) {
             button.text('like');
@@ -23,10 +22,11 @@ $(document).ready(function(){
             $.ajax({
                 method: 'POST',
                 url: urlLike,
-                data: {answer_id: id, _token: token, isliked: 1} 
+                data: {question_id: id, _token: token, isliked: 1} 
             });
 
         }
+        console.log($('.options').data('liked')); 
         
 
     });
@@ -63,6 +63,31 @@ $(document).ready(function(){
                 $('div.output').html(data);
             },
         });
+
+    });
+
+    // follow system
+    // there is a bug here must be solved !!
+    $('div.relation').children('button').on('click', function(){
+        var id = $(this).data('id'),
+            is_followed = $(this).data('followed'),
+            button = $('button.fuck');
+
+        $.ajax({
+            url: relationUrl,
+            method: "POST",
+            data: {followed_id: id, is_followed: is_followed, _token: token}
+        });
+
+        if (is_followed == 1){
+            button.data('followed', 0);  
+            button.text('Unfollow');
+        }
+
+        else if (is_followed == 0){
+            button.data('followed', 1);  
+            button.text('Follow');
+        }
 
     });
 });
