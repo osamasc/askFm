@@ -1,13 +1,18 @@
 $(document).ready(function(){
+    
+
+    // like system 
+
     $('.like').on('click', function(){
        
-        var id  = $('.options').data("id"),
-             is_liked = $('.options').data('liked'),
-             button = $('.like'),
-             options = $('.options');
+        var id  = $('.like').parent('.options').data("id"),
+             is_liked = $(this).parent('.options').data('liked'),
+             button = $(this),
+             options = $(this).parent('.options');
         if (is_liked == 0){
             
             button.text('Unlike');
+            button.css('color', '#FF5656')
             options.data('liked', 1);
 
             $.ajax({
@@ -17,6 +22,7 @@ $(document).ready(function(){
             });
         } if ( is_liked == 1) {
             button.text('like');
+            button.css('color', '#4B4F56')
             options.data('liked', 0);
 
             $.ajax({
@@ -30,6 +36,8 @@ $(document).ready(function(){
         
 
     });
+
+    // count text area and make it less thank 140 character
 
     $('textarea.txt').keyup(function(){
         
@@ -47,6 +55,8 @@ $(document).ready(function(){
             $('input:submit').removeAttr('disabled');
         }
     });
+
+    // friends search system 
 
     $('.search').children('input:text').keyup(function(){
         var input = $(this).val();
@@ -71,8 +81,7 @@ $(document).ready(function(){
     $('div.relation').children('button').on('click', function(){
         var id = $(this).data('id'),
             is_followed = $(this).data('followed'),
-            button = $('button.fuck');
-
+            button = $(this);
         $.ajax({
             url: relationUrl,
             method: "POST",
@@ -90,4 +99,33 @@ $(document).ready(function(){
         }
 
     });
+
+
+    // delete a question 
+
+    $('.remove').on('click', function(){
+        var question_id = $(this).parent('.controllers').data('id');
+        $.ajax({
+            url: urlDelete,
+            method: "POST",
+            data: {question_id: question_id, _token: token},
+            success: function(){
+                $(document).ajaxStop(function(){
+                window.location.reload();
+                });
+            }
+        });
+
+    });
+
+    // update user pic 
+
+        $('.profile').find('i').on('click', function(){
+        $('#profile-modal').modal();
+      });
+
+        $('.cover').find('i').on('click', function(){
+        $('#cover-modal').modal();
+    });
+
 });

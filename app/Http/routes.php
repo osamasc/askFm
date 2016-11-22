@@ -37,3 +37,7 @@ Route::get('/account/friends', 'FriendsController@getFriends');
 Route::get('/{username}/ask', 'QuestController@singleQuestion');
 
 Route::post('/search', 'FriendsController@search');
+
+Route::post('/profile/upload', 'SettingsController@setPic');
+
+Route::get('/account/notification', 'NotificationController@getNotification');

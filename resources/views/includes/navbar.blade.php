@@ -1,38 +1,23 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">askFm</a>
+<div class="header">
+    <h3>Question's Bank</h3>
+    <div class="search">
+        <input type="text" class="form-control" placeholder="Lets Search About People Together!">
     </div>
+    <div class="user-login">
+        Usama Ahmed <i class="fa fa-level-down" aria-hidden="true"></i>
+    </div>
+</div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="{{ URL::to('/') . '/account/wall'}}">Home <span class="sr-only">(current)</span></a></li>
-        <li><a href="{{ asset('/account/questions') }}">Questions</a></li>
-        <li><a href="{{ asset('/account/friends') }}">Friends</a></li>
+<div class="navbar">
+        <div class="container">
+            <ul>
+                <li><i class="fa fa-bell" aria-hidden="true"></i><a href="{{ asset('/account/notification') }}">Notifications</a></li>
+                <li><i class="fa fa-home" aria-hidden="true"></i> <a href="{{ asset('/account/wall') }}">Home</a></li>
+                <li><i class="fa fa-address-book" aria-hidden="true"></i> <a href="{{ URL::to('/') . '/'  }}">Profile</a></li></li>
+                <li><i class="fa fa-weixin" aria-hidden="true"></i> <a href="{{ asset('/account/friends') }}">Friends</a></li></li>
+                <li><i class="fa fa-weixin" aria-hidden="true"></i> <a href="{{ asset('/account/questions') }}">Questions</a></li></li>
+            </ul>    
+    </div>    
+</div>
 
-        <li><a href="#">Notifications</a></li>
-      </ul>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{{ URL::to('/') . '/account/profile'}}">Profile</a></li>
-            <li><a href="{{ URL::to('/') . '/account/friends'}}">Friends</a></li>
-            <li><a href="{{ URL::to('/') . '/account/settings'}} ">Settings</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{{ URL::to('/') . '/logout'}}">Logout</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>

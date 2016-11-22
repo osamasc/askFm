@@ -11,7 +11,16 @@ use Illuminate\Support\Facades\Auth;
 use App\About;
 
 class SettingsController extends Controller
-{
+{   
+    public function __construct()
+    {
+        return $this->middleware('auth');
+
+        $currentAuth = Auth::user();
+        view()->share(['currentAuth'=> $currentAuth ]);
+
+    }
+
     public function getIndex()
     {   
         $user = Auth::User();
@@ -48,5 +57,45 @@ class SettingsController extends Controller
             'bio'      => 'max:255',
             'web'      => 'max:255'
         ]);
+    }
+
+    public function setPic(Request $request)
+    {
+        $this->validate($request, [
+            'type'  => 'required'
+        ]);
+
+        $type = $request->type;
+
+        if ($type == 'profile-pic')
+        {   
+           $photo      = $request->file('image');
+           $photoName  = time() . $photo->getClientOriginalName();
+           $path       ='uploads/images/profile';
+           $photo->move($path, $photoName);
+       
+           $user = Auth::user();
+           $user->photo = $photoName;
+           $user->update();
+
+           return redirect()->back();
+
+        } 
+
+        else if ($type == 'cover-pic')
+        {   
+           $photo      = $request->file('image');
+           $photoName  = time() . $photo->getClientOriginalName();
+           $path       ='uploads/images/cover';
+           $photo->move($path, $photoName);
+       
+           $user = Auth::user();
+           $user->cover = $photoName;
+           $user->update();
+
+           return redirect()->back();
+
+        }
+
     }
 }

@@ -22,6 +22,6 @@ class AnswerController extends Controller
         $question->replied = 0;
         $question->update();
 
-        return redirect()->back();
+        return redirect()->back();  
     }
 }
